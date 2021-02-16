@@ -4,13 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>17890c08-0258-4347-8128-9732b94712e1</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>NNFS_Enviornment.py</StartupFile>
+    <StartupFile>NNFS_enviornment.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>NNFS_Enviornment</Name>
     <RootNamespace>NNFS_Enviornment</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,6 +23,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="NNFS_Enviornment.py" />
+    <Compile Include="Softmax.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="spiral_data_gen.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
