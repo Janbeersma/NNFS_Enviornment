@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>17890c08-0258-4347-8128-9732b94712e1</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Loss.py</StartupFile>
+    <StartupFile>NNFS_Enviornment.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

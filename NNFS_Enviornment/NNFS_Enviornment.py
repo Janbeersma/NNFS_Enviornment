@@ -44,7 +44,38 @@ class Loss:
         #return loss
         return data_loss
 
-#X, y is een spiral dataset met iedere class 100 samples verdeeld over drie verschillende classes
+#cross categorical entropy loss class
+class Loss_CategoricalCrossentropy(Loss):
+
+    #forward pass
+    def forward(self, y_pred, y_true):
+
+        #geeft het aantal samples in de batch
+        samples = len(y_pred)
+
+        #clip de data om delen door 0 te voorkomen
+        #clip beide kanten om te voorkomen dat het gemiddelde neigt naar welke waarde dan ook
+        y_pred_clipped = np.clip(y_pred, 1e-7, 1- 1e-7)
+
+        #kansen voor target values alleen voor categorische labels 
+        if len(y_true.shape) == 1:
+            correct_confidences = y_pred_clipped[
+                range(samples), y_true
+                ]
+
+        #kansen voor one-hot encoded labels
+        elif len(y_true.shape) == 2:
+            correct_confidences = np.sum(
+                y_pred_clipped*y_true,
+                axis=1
+                )
+
+        #losses
+        negative_log_likelihoods = -np.log(correct_confidences)
+        return negative_log_likelihoods
+
+
+#X, y is een spiral dataset met iedere class 100 samples verdeeld over drie verschillende classes waar y de gelabelde data is
 X, y = spiral_data(samples=100, classes=3)
 
 #de eerste dense layer heeft 2 inputs en 3 neuronen
@@ -60,13 +91,26 @@ dense2 = Layer_Dense(3,3)
 #activation2 is een Softmax activatiefunctie
 activation2 = Activation_Softmax()
 
+#geeft aaan dat de loss functie gebruik maakt van cross categorical entropy
+loss_function = Loss_CategoricalCrossentropy()
+
 #De input van dense1 is dataset X
 dense1.forward(X)
 
 #de ReLU activatiefunctie wordt uitgevoerd op dense1 
 activation1.forward(dense1.output)
 
+#de ReLU activatiefunctie wordt uitgevoerd op dense2
 dense2.forward(activation1.output)
+
+#de Softmax activatiefunctie wordt uitgevoerd op de output layer
 activation2.forward(dense2.output)
 
+#de output van de samples in het neurale netwerk
 print(activation2.output[:5])
+
+#neem de output van de softmax functie op de output layer en bereken de loss doormiddel van de voorspelde resultaten en de daadwerkelijke data
+loss = loss_function.calculate(activation2.output, y)
+
+#print de loss waarde
+print('loss: ', loss)
