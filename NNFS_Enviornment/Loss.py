@@ -9,6 +9,7 @@ class_targets = np.array([[1,0,0],
                           [0,1,0],
                           [0,1,0]])
 
+
 if len(class_targets.shape) == 1:
     correct_confidences = softmax_outputs[range(len(softmax_outputs)), class_targets]
 
