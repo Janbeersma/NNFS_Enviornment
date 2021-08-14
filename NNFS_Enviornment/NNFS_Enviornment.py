@@ -94,23 +94,36 @@ activation2 = Activation_Softmax()
 #geeft aaan dat de loss functie gebruik maakt van cross categorical entropy
 loss_function = Loss_CategoricalCrossentropy()
 
-#De input van dense1 is dataset X
-dense1.forward(X)
+lowest_loss = np.Infinity # some initial value
+best_dense1_weights = dense1.weights.copy()
+best_dense1_biases = dense1.biases.copy()
+best_dense2_weights = dense2.weights.copy()
+best_dense2_biases = dense2.biases.copy()
 
-#de ReLU activatiefunctie wordt uitgevoerd op dense1 
-activation1.forward(dense1.output)
+for iteration in range(10000):
+    #De input van dense1 is dataset X
+    dense1.forward(X)
 
-#de ReLU activatiefunctie wordt uitgevoerd op dense2
-dense2.forward(activation1.output)
+    #de ReLU activatiefunctie wordt uitgevoerd op dense1 
+    activation1.forward(dense1.output)
 
-#de Softmax activatiefunctie wordt uitgevoerd op de output layer
-activation2.forward(dense2.output)
+    #de ReLU activatiefunctie wordt uitgevoerd op dense2
+    dense2.forward(activation1.output)
 
-#de output van de samples in het neurale netwerk
-print(activation2.output[:5])
+    #de Softmax activatiefunctie wordt uitgevoerd op de output layer
+    activation2.forward(dense2.output)
 
-#neem de output van de softmax functie op de output layer en bereken de loss doormiddel van de voorspelde resultaten en de daadwerkelijke data
-loss = loss_function.calculate(activation2.output, y)
+    #de output van de samples in het neurale netwerk
+    print(activation2.output[:5])
 
-#print de loss waarde
-print('loss: ', loss)
+    #neem de output van de softmax functie op de output layer en bereken de loss doormiddel van de voorspelde resultaten en de daadwerkelijke data
+    loss = loss_function.calculate(activation2.output, y)
+
+    #print de loss waarde
+    print('loss: ', loss)
+
+    # Calculate accuracy from output of activation2 and targets
+    # calculate values along first axis
+    predictions = np.argmax(activation2.output, axis=1)
+    accuracy = np.mean(predictions == y)
+

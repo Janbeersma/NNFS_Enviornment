@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>17890c08-0258-4347-8128-9732b94712e1</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>NNFS_Enviornment.py</StartupFile>
+    <StartupFile>derivatives.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,10 +22,19 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="derivatives.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="hmmm.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Loss.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="NNFS_Enviornment.py" />
+    <Compile Include="Random_Optimizer.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Softmax.py">
       <SubType>Code</SubType>
     </Compile>
